@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}Giriş yap{% endblock %} {% block sayfa_baslik %}Giriş yap{% endblock %} {% block body %} {% load crispy_forms_tags %}
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <table>
+    {{ form|crispy }}
+  </table>
+  <button class="btn btn-primary btn-block" type="submit">Giriş</button>
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %}

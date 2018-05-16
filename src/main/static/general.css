@@ -1,0 +1,197 @@
+body {
+  font-family: 'Libre Franklin', sans-serif;
+  background: url('doodles.png');
+}
+
+.list-group-hover .list-group-item:hover {
+  background: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.ana {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.gzlnavbar {
+  border-bottom: 1px solid #ccc;
+}
+
+.gzlnavbar .nav-item.active {
+  border-bottom: 2px solid #007bff;
+}
+
+.gzlnavbar .nav-link {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.gzlnavbar .dropdown-menu {
+  margin: 0;
+}
+
+body a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.guzeltable {
+  font-size: 14px;
+}
+
+.guzeltable .detay {
+  min-width: 150px;
+}
+
+.sweetblue {
+  color: #007bff;
+}
+
+.sweetred {
+  color: #e51400;
+}
+
+.materialbutton {
+  color: #e51400;
+  cursor: pointer;
+}
+
+.favori::before {
+  content: "favorite";
+}
+
+.favori:hover::before {
+  content: "favorite_border";
+}
+
+.favori-inv::before {
+  content: "favorite_border";
+}
+
+.favori-inv:hover::before {
+  content: "favorite";
+}
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.eachkelime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.material-icons.fs-12 {
+  font-size: 12px;
+}
+
+.material-icons.fs-14 {
+  font-size: 14px;
+}
+
+.material-icons.fs-16 {
+  font-size: 16px;
+}
+
+.material-icons.fs-18 {
+  font-size: 18px;
+}
+
+.about {
+  font-size: 64px;
+  color: #272727;
+  font-family: 'Suez One', serif;
+}
+
+.about i {
+  font-size: 64px;
+}
+
+.navbar-brand {
+  font-family: 'Suez One', serif;
+  font-size: 22px;
+  color: #007bff !important;
+}
+
+.klistcikar {
+  display: none;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.klisthover .btn {
+  display: none;
+}
+
+.klisthover:hover .btn {
+  display: block;
+}
+
+.klisthover:hover {
+  font-weight: bold;
+}
+
+.guzeltable tr.rndkelime a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.guzeltable tr.rndkelime:hover {
+  cursor: pointer;
+  background: #0160c6;
+}
+
+.guzeltable th {
+  text-align: center;
+  font-weight: normal;
+}
+
+.guzeltable .toptr th {
+  font-weight: 700;
+  border: none;
+}
+
+.asteriskField {
+  display: none;
+}
+
+.content-main {
+  background: #fff;
+  height: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  padding-bottom: 30px;
+}
+
+.margin8 {
+  margin-right: 8px;
+}
+
+.pheader {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.clickable-tr {
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .hddn-992lower {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .gzlnavbar {
+    padding: 0;
+  }
+}

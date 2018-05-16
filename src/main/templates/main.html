@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block title %}Kelimeci{% endblock %} {% block sayfa_baslik %}Kelime listesi{% endblock %} {% block body %} {% if object_list %}
+<table class="table table-bordered table-striped table-hover table-condensed table-sm guzeltable">
+  <tr class="toptr">
+    <th>Kelime</th>
+    <th>İngilizce Tanım</th>
+    <th>Türkçe Anlam</th>
+    <th class="hddn-992lower">Örnek Cümle</th>
+    <th class="hddn-992lower">Yakın Anlam</th>
+  </tr>
+  {% for obj in object_list %}
+  <tr class="clickable-tr" data-href="{% url 'kelime_detay' obj.kelime %}">
+    <th>{{ obj.kelime }}</th>
+    <th>{{ obj.ingilizce_tanim }}</th>
+    <th>{{ obj.turkce_anlam }}</th>
+    <th class="hddn-992lower">{{ obj.ornek_cumle }}</th>
+    <th class="hddn-992lower">{{ obj.ingilizce_yakin }}</th>
+  </tr>
+  {% endfor %}
+</table>
+{% include "include/pagination.html" %} {% else %} Bakıyorum da bütün kelimeleri ezberlemişsin. İlla kelime göreceğim diyorsan ayarlardan bilmediğim kelimeleri de göreyim seçeneğini işaretle. {% endif %} {% endblock %}

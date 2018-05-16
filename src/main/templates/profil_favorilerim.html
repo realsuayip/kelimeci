@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}Favorileriniz{% endblock %} {% block sayfa_baslik %}Favorileriniz{% endblock %} {% block body %} {% load crispy_forms_tags %} {% if object_list %}
+<table class="table table-hover">
+  {% for obj in object_list %}
+  <tr class="clickable-tr" data-href="{% url 'kelime_detay' obj.kelime %}">
+    <td class="klisthover ">
+      <span class="eachkelime">
+      {{ obj.kelime }}
+      <form method="POST" action="{% url 'favoricikar' %}">
+        {% csrf_token %}
+        <input type="hidden" name="favori" value="{{ obj.kelime }}">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button class="btn btn-danger float-right"type="submit">favorilerimden çıkar</button>
+      </form>
+</span>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% include "include/pagination.html" %} {% else %}
+<p>Buralar bomboş..</p>
+{% endif %} {% endblock %}

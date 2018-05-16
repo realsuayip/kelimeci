@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Alıştırma{% endblock %} {% block sayfa_baslik %}Alıştırma{% endblock %} {% block body %} {% if kelime %}
+<script type="text/javascript">
+  function goster() {
+    document.getElementById("cevap").style.display = 'table';
+  }
+</script>
+<button onclick="goster();" id="kelime_asil" class="btn btn-primary btn-lg btn-block">{{ kelime.kelime }}</button>
+<br />
+<table class="table table-bordered table-responsive" id="cevap" style="display: none;">
+  <tbody>
+    <tr>
+      <td width="120">ingilizce tanım</td>
+      <td>{{ kelime.ingilizce_tanim }}</td>
+    </tr>
+    <tr>
+      <td>türkçe anlam</td>
+      <td>{{ kelime.turkce_anlam }}</td>
+    </tr>
+    <tr>
+      <td>örnek cümle</td>
+      <td>{{ kelime.ornek_cumle }}</td>
+    </tr>
+    <tr>
+      <td>ingilizce yakın</td>
+      <td>{{ kelime.ingilizce_yakin }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button class="btn btn-primary btn-block" onclick="location.reload();">
+        yeni kelime gelsin
+      </button> {% if request.user.is_authenticated %} {% if kelime in user.eleman.bildikleri.all %}
+        <form class="my-2" method="POST" action="{% url 'kelimecikar' %}">
+          {% csrf_token %}
+          <input type="hidden" name="kelime" value="{{ kelime.kelime }}">
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button class="btn btn-danger btn-block" type="submit">bildiklerimden çıkar</button>
+        </form>
+        {% else %}
+        <form class="my-2" method="POST" action="{% url 'addknown' %}">
+          {% csrf_token %}
+          <input type="hidden" name="kelime" value="{{ kelime.kelime }}">
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button class="btn btn-success btn-block" type="submit">bildiğim kelimelere ekle</button>
+        </form>
+        {% endif %} {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <small>bu kelime {{ kelime.ekleyen_kisi }} tarafından {{ kelime.eklenme_tarihi }} tarihinde eklendi.</small>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ul id="cevap" style="display: none;">
+  <li><span>ingilizce tanım: </span>{{ kelime.ingilizce_tanim}}</li>
+  <li><span>türkçe anlam: </span>{{ kelime.turkce_anlam }}</li>
+  <li><span>örnek cümle: </span>{{ kelime.ornek_cumle }}</li>
+  <li><span>ingilizce yakın: </span>{{ kelime.ingilizce_yakin }}</li>
+  <br>
+</ul>
+{% else %} Bakıyorum da bütün kelimeleri ezberlemişsin. İlla kelime göreceğim diyorsan ayarlardan bilmediğim kelimeleri de göreyim seçeneğini işaretle. {% endif %} {% endblock %}

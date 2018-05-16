@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Diğerleri{% endblock %} {% block sayfa_baslik %} {{ user.username }} hakkında {% endblock %} {% block body %}
+<ul class="list-group pb-3 list-group-flush">
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>bilinen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.bilinen }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>bilinmeyen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.bilinmeyen }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>eklenen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.eklenen }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>isim & soy isim:</b><span class="badge badge-primary badge-pill">{{ user.first_name}} {{ user.last_name}}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>kayıt tarihi</b><span class="badge badge-primary badge-pill">{{ user.date_joined }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>son giriş</b><span class="badge badge-primary badge-pill">{{ user.last_login|timesince }} önce</span></li>
+</ul>
+{% if not user.eleman.bildik_privacy %}
+<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#bildikleriGoruntuleModal">bildiği kelimeleri gör</button>
+<div class="modal fade" id="bildikleriGoruntuleModal" tabindex="-1" role="dialog" aria-labelledby="bildikleriGoruntuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: initial !important">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ user.username }} bildikleri</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height: 250px; overflow-y: auto;">
+        {% if user.eleman.bildikleri.all %}
+        <ul class="list-group list-group-flush list-group-hover">
+          {% for bilinen in user.eleman.bildikleri.all %}
+          <li data-href="{% url 'kelime_detay' bilinen.kelime %}" class="clickable-tr list-group-item d-flex justify-content-between align-items-center">{{ bilinen.kelime }}</li>
+          {% endfor %}
+        </ul>
+        {% else %} hiç yok {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+<hr> {% endif %} {% if not user.eleman.favori_privacy %}
+<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#favoriGoruntuleModal">favorilerini gör</button>
+<div class="modal fade" id="favoriGoruntuleModal" tabindex="-1" role="dialog" aria-labelledby="favoriGoruntuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="overflow-y: initial !important">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ user.username }} favorileri</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height: 250px; overflow-y: auto;">
+        {% if user.eleman.favorileri.all %}
+        <ul class="list-group list-group-flush list-group-hover">
+          {% for favori in user.eleman.favorileri.all %}
+          <li data-href="{% url 'kelime_detay' favori.kelime %}" class="clickable-tr list-group-item d-flex justify-content-between align-items-center">{{ favori.kelime }}</li>
+          {% endfor %}
+        </ul>
+        {% else %} hiç yok {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock %}

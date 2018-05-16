@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Diğerleri{% endblock %} {% block sayfa_baslik %} Diğerleri {% endblock %} {% block body %}
+<table class="table table-hover">
+  {% for obj in object_list %}
+  <tr class="clickable-tr" data-href="{% url 'userprofile' obj.username %}">
+    <td class="klisthover">
+      {{ obj.username }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% include "include/pagination.html" %} {% endblock %}

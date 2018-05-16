@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block title %}Ayarlar{% endblock %} {% block sayfa_baslik %} Ayarlar {% endblock %} {% block body %} {% load crispy_forms_tags %}
+<form action="{% url 'ayarlar' %}" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form|crispy }}
+  </table>
+  <button type="submit" class="btn btn-primary">kaydet</button>
+</form>
+{% endblock %}

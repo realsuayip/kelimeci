@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Bildikleriniz{% endblock %} {% block sayfa_baslik %}{{ user.first_name }} {{ user.last_name }} bildikleri {% endblock %} {% block body %} {% load crispy_forms_tags %} {% if page_obj.number == 1 %}
+<ul class="list-group pb-3 list-group-flush">
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>bilinen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.bilinen }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>bilinmeyen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.bilinmeyen }}</span></li>
+  <li class="list-group-item d-flex justify-content-between align-items-center"><b>eklenen kelime sayısı</b><span class="badge badge-primary badge-pill">{{ stats.eklenen }}</span></li>
+</ul>
+{% endif %} {% if object_list %}
+<table class="table table-hover">
+  {% for obj in object_list %}
+  <tr class="clickable-tr" data-href="{% url 'kelime_detay' obj.kelime %}">
+    <td class="klisthover ">
+      <span class="eachkelime">
+      {{ obj.kelime }}
+      <form method="POST" action="{% url 'kelimecikar' %}">
+        {% csrf_token %}
+        <input type="hidden" name="kelime" value="{{ obj.kelime }}">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button class="btn btn-danger float-right"type="submit">listeden çıkar</button>
+      </form>
+</span>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% include "include/pagination.html" %} {% else %}
+<p>Buralar bomboş..</p>
+<a class="btn btn-primary" href="{{ url_alistirma }}">Kelime öğren</a> {% endif %} {% endblock %}

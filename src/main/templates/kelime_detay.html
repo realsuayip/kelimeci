@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}{{ kelime.kelime}} kelimesi görüntüleniyor{% endblock %} {% block sayfa_baslik %}{{ kelime.kelime }} {% if bilinme %}
+<i data-toggle="tooltip" data-placement="bottom" title="bu kelimeyi biliyorsun" class="material-icons sweetblue">beenhere</i> {% endif %} {% if request.user.is_authenticated %} {% if favorilenme %} {% include "include/modal_favoricikar.html" %}
+<span class="materialbutton float-right" data-toggle="modal" data-target="#favorisilModal">
+<i data-toggle="tooltip" data-placement="bottom" title="favorilerimden çıkar" class="material-icons favori"></i>
+</span> {% else %} {% include "include/modal_favorile.html" %}
+<span class="materialbutton float-right" data-toggle="modal" data-target="#favoriekleModal">
+<i data-toggle="tooltip" data-placement="bottom" title="favorilere ekle" class="material-icons favori-inv"></i>
+</span> {% endif %} {% endif %} {% endblock %} {% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td width="120">ingilizce tanım</td>
+    <td>{{ kelime.ingilizce_tanim }}</td>
+  </tr>
+  <tr>
+    <td>türkçe anlam</td>
+    <td>{{ kelime.turkce_anlam }}</td>
+  </tr>
+  <tr>
+    <td>örnek cümle</td>
+    <td>{{ kelime.ornek_cumle }}</td>
+  </tr>
+  <tr>
+    <td>ingilizce yakın</td>
+    <td>{{ kelime.ingilizce_yakin }}</td>
+  </tr>
+  <tr>
+    <td colspan=2>
+      <li>{{ kelime.eklenme_tarihi }} tarihinde "{{ kelime.ekleyen_kisi }}" tarafından eklenmiş. </li>
+      <li>Son düzenlenme tarihi: {{ kelime.degistirilme_tarihi }}</li>
+    </td>
+  </tr>
+</table>
+{% if request.user.is_authenticated %} {% if not bilinme %}
+<form class="my-2" method="POST" action="{% url 'addknown' %}">
+  {% csrf_token %}
+  <input type="hidden" name="kelime" value="{{ kelime.kelime }}">
+  <input type="hidden" name="next" value="{{ request.path }}">
+  <button class="btn btn-primary btn-block" type="submit">bildiğim kelimelere ekle</button>
+</form>
+{% else %}
+<form class="my-2" method="POST" action="{% url 'kelimecikar' %}">
+  {% csrf_token %}
+  <input type="hidden" name="kelime" value="{{ kelime.kelime }}">
+  <input type="hidden" name="next" value="{{ request.path }}">
+  <button class="btn btn-primary btn-block" type="submit">Bildiklerimden çıkar</button>
+</form>
+{% endif %} {% if kelime.ekleyen_kisi|stringformat:"s" == user.username|stringformat:"s" %}
+<a href="{% url 'kelime_duzenle' kelime.kelime %}" class="btn btn-primary btn-block">
+<i class="material-icons">edit</i>
+  Bu kelimeyi düzenle</a>
+<button class="btn btn-danger btn-block" data-toggle="modal" data-target="#kelimesilModal">
+<i class="material-icons">delete</i>
+  Bu kelimeyi sil</button> {% include "include/modal_kelimesil.html" %} {% endif %} {% endif %} {% endblock %}

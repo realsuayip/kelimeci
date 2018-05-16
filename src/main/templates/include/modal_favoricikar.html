@@ -1,0 +1,25 @@
+<div class="modal fade" id="favorisilModal" tabindex="-1" role="dialog" aria-labelledby="favorisilModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Favorilerinden çıkar?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          {{ kelime.kelime }} kelimesi favorilerinden çıkarılıyor. Devam edilsin mi?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+        <form class="my-2" method="POST" action="{% url 'favoricikar' %}">
+          {% csrf_token %}
+          <input type="hidden" name="favori" value="{{ kelime.kelime }}">
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn btn-danger">Çıkar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
